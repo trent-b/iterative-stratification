@@ -143,8 +143,8 @@ class MultilabelStratifiedKFold(_BaseKFold):
     ...    print("TRAIN:", train_index, "TEST:", test_index)
     ...    X_train, X_test = X[train_index], X[test_index]
     ...    y_train, y_test = y[train_index], y[test_index]
-    TRAIN: [1 3 5 6] TEST: [0 2 4 7]
-    TRAIN: [0 2 4 7] TEST: [1 3 5 6]
+    TRAIN: [1 3 4 7] TEST: [0 2 5 6]
+    TRAIN: [0 2 5 6] TEST: [1 3 4 7]
     Notes
     -----
     Train and test sizes may be slightly different in each fold.
@@ -170,9 +170,9 @@ class MultilabelStratifiedKFold(_BaseKFold):
         num_samples = y.shape[0]
         
         rng = check_random_state(self.random_state)
+        indices = np.arange(num_samples)
         
         if self.shuffle:
-            indices = np.arange(num_samples)
             rng.shuffle(indices)
             y = y[indices]
         
@@ -181,7 +181,7 @@ class MultilabelStratifiedKFold(_BaseKFold):
         test_folds = IterativeStratification(labels=y, r=r, k=self.n_splits,
                                              random_state=rng)
         
-        return test_folds
+        return test_folds[np.argsort(indices)]
     
     def _iter_test_masks(self, X, y=None, groups=None):
         test_folds = self._make_test_folds(X, y)
@@ -245,10 +245,10 @@ class RepeatedMultilabelStratifiedKFold(_RepeatedSplits):
     ...     X_train, X_test = X[train_index], X[test_index]
     ...     y_train, y_test = y[train_index], y[test_index]
     ...
-    TRAIN: [1 3 5 6] TEST: [0 2 4 7]
-    TRAIN: [0 2 4 7] TEST: [1 3 5 6]
-    TRAIN: [1 2 4 6] TEST: [0 3 5 7]
-    TRAIN: [0 3 5 7] TEST: [1 2 4 6]
+    TRAIN: [0 3 4 6] TEST: [1 2 5 7]
+    TRAIN: [1 2 5 7] TEST: [0 3 4 6]
+    TRAIN: [0 2 5 7] TEST: [1 3 4 6]
+    TRAIN: [1 3 4 6] TEST: [0 2 5 7]
     See also
     --------
     RepeatedStratifiedKFold: Repeats (Non-multilabel) Stratified K-Fold
@@ -309,15 +309,11 @@ class MultilabelStratifiedShuffleSplit(BaseShuffleSplit):
     ...    print("TRAIN:", train_index, "TEST:", test_index)
     ...    X_train, X_test = X[train_index], X[test_index]
     ...    y_train, y_test = y[train_index], y[test_index]
-    TRAIN: [1 2 3 6] TEST: [0 4 5 7]
-    TRAIN: [1 3 5 6] TEST: [0 2 4 7]
-    TRAIN: [0 1 6 7] TEST: [2 3 4 5]
+    TRAIN: [1 2 5 7] TEST: [0 3 4 6]
+    TRAIN: [2 3 6 7] TEST: [0 1 4 5]
+    TRAIN: [1 2 5 6] TEST: [0 3 4 7]
     Notes
     -----
-    The example above does not demonstrate good stratification for two of the
-    three splits due to the behavior of the iterative stratification algorithm
-    for such a small number of samples.
-    
     Train and test sizes may be slightly different from desired due to the
     preference of stratification over perfectly sized folds.
     """
@@ -342,18 +338,20 @@ class MultilabelStratifiedShuffleSplit(BaseShuffleSplit):
                                                   self.train_size)
         
         n_samples = y.shape[0]
-        indices = np.arange(n_samples)
         rng = check_random_state(self.random_state)
+        y_orig = y.copy()
         
         r = np.array([n_train, n_test]) / (n_train + n_test)
         
         for _ in range(self.n_splits):
+            indices = np.arange(n_samples)
             rng.shuffle(indices)
-            y = y[indices]
+            y = y_orig[indices]
             
             test_folds = IterativeStratification(labels=y, r=r, k=2,
                                                  random_state=rng)
-            test_idx = test_folds == 1
+            
+            test_idx = test_folds[np.argsort(indices)] == 1
             test = np.where(test_idx)[0]
             train = np.where(~test_idx)[0]
             
