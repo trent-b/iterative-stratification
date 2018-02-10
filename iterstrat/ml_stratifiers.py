@@ -301,11 +301,12 @@ class MultilabelStratifiedShuffleSplit(BaseShuffleSplit):
     >>> y = np.array([[0,0], [0,0], [0,1], [0,1], [1,1], [1,1], [1,0], [1,0]])
     >>> msss = MultilabelStratifiedShuffleSplit(n_splits=3, test_size=0.5,
     ...    random_state=0)
-    >>> mss.get_n_splits(X, y)
+    >>> msss.get_n_splits(X, y)
     3
     >>> print(mss)       # doctest: +ELLIPSIS
-    MultilabelStratifiedShuffleSplit(n_splits=3, random_state=0, ...)
-    >>> for train_index, test_index in sss.split(X, y):
+    MultilabelStratifiedShuffleSplit(n_splits=3, random_state=0, test_size=0.5,
+                                     train_size=None)
+    >>> for train_index, test_index in msss.split(X, y):
     ...    print("TRAIN:", train_index, "TEST:", test_index)
     ...    X_train, X_test = X[train_index], X[test_index]
     ...    y_train, y_test = y[train_index], y[test_index]
