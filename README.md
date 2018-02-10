@@ -21,7 +21,7 @@ The package is also installable from the Anaconda Cloud platform:
 ```
 conda install -c trent-b iterative-stratification
 ```
-\
+
 ## Toy Examples
 ### MultilabelStratifiedKFold
 ```
@@ -43,7 +43,7 @@ Output:
 TRAIN: [1 3 4 7] TEST: [0 2 5 6]
 TRAIN: [0 2 5 6] TEST: [1 3 4 7]
 ```
-\
+
 ### MultilabelStratifiedKFold
 ```
 from iterstrat.ml_stratifiers import MultilabelStratifiedKFold
