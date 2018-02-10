@@ -23,6 +23,8 @@ conda install -c trent-b iterative-stratification
 ```
 
 ## Toy Examples
+The multilabel cross validators that this package provides may be used with the scikit-learn API in the same manner as any other cross validators. For example, these cross validators may be passed to cross_val_score or cross_val_predict. Below are some toy examples of the direct use of the multilabel cross validators.
+
 ### MultilabelStratifiedKFold
 ```
 from iterstrat.ml_stratifiers import MultilabelStratifiedKFold
