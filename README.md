@@ -11,15 +11,18 @@ iterative-stratification is tested to work under Python 3.5 with the following d
 - numpy(>=1.8.2)
 - scikit-learn(>=0.19.0)
 
+
 iterative-stratification is currently available on the PyPi's repository and you can install it via pip:
 ```
 pip install -U iterative-stratification
 ```
 
+
 The package is release also in Anaconda Cloud platform:
 ```
 conda install -c conda-forge iterative-stratification
 ```
+
 
 If you prefer, you can clone it and run the setup.py file. Use the following commands to get a copy from GitHub and install all dependencies:
 ```
@@ -27,6 +30,7 @@ git clone https://github.com/trent-b/iterative-stratification.git
 cd iterative-stratification
 pip install .
 ```
+
 
 Or install using pip and GitHub:
 ```
