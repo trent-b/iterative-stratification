@@ -1,0 +1,15 @@
+"""Package that provides scikit-learn compatible cross validators with stratification for multilabel data.
+``iterative-stratification`` offers implementations of MultilabelStratifiedKFold, 
+MultilabelRepeatedStratifiedKFold, and MultilabelStratifiedShuffleSplit with a 
+base algorithm for stratifying multilabel
+Subpackages
+-----------
+iterative_stratification
+    Module that implements MultilabelStratifiedKFold, 
+    MultilabelRepeatedStratifiedKFold, and MultilabelStratifiedShuffleSplit.
+"""
+
+__version__ = '0.1.1'
+
+# list all submodules available in iterstrat and version
+__all__ = ['iterative_stratification', '__version__']
