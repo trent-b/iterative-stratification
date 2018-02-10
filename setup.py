@@ -25,8 +25,7 @@ CLASSIFIERS = ['Intended Audience :: Science/Research',
                'Intended Audience :: Developers',
                'Programming Language :: Python',
                'Topic :: Software Development',
-               'Topic :: Scientific/Engineering',
-               'Programming Language :: Python :: 3.6']
+               'Topic :: Scientific/Engineering']
 
 setup(name=DISTNAME,
       maintainer=MAINTAINER,
