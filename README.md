@@ -5,31 +5,19 @@ Presently scikit-learn 0.19.0 provides several cross validators with stratificat
 
 Sechidis K., Tsoumakas G., Vlahavas I. (2011) On the Stratification of Multi-Label Data. In: Gunopulos D., Hofmann T., Malerba D., Vazirgiannis M. (eds) Machine Learning and Knowledge Discovery in Databases. ECML PKDD 2011. Lecture Notes in Computer Science, vol 6913. Springer, Berlin, Heidelberg.
 
-# Requirements
+## Requirements
 iterative-stratification is tested to work under Python 3.5 with the following dependencies:
 - scipy(>=0.13.3)
 - numpy(>=1.8.2)
 - scikit-learn(>=0.19.0)
 
-# Installation
-iterative-stratification is currently available on the PyPi's repository and you can install it via pip:
+## Installation
+iterative-stratification is currently available on the PyPi repository and can be installed via pip:
 ```
 pip install -U iterative-stratification
 ```
 \
-The package is release also in Anaconda Cloud platform:
+The package is also released on the Anaconda Cloud platform:
 ```
 conda install -c conda-forge iterative-stratification
-```
-\
-If you prefer, you can clone it and run the setup.py file. Use the following commands to get a copy from GitHub and install all dependencies:
-```
-git clone https://github.com/trent-b/iterative-stratification.git
-cd iterative-stratification
-pip install .
-```
-\
-Or install using pip and GitHub:
-```
-pip install -U git+https://github.com/trent-b/iterative-stratification.git
 ```
