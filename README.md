@@ -14,7 +14,7 @@ iterative-stratification is tested to work under Python 3.5 with the following d
 ## Installation
 iterative-stratification is currently available on the PyPi repository and can be installed via pip:
 ```
-pip install -U iterative-stratification
+pip install iterative-stratification
 ```
 \
 The package is also released on the Anaconda Cloud platform:
