@@ -19,5 +19,5 @@ pip install iterative-stratification
 \
 The package is also released on the Anaconda Cloud platform:
 ```
-conda install -c conda-forge iterative-stratification
+conda install -c trent-b iterative-stratification
 ```
