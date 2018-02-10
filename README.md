@@ -1,5 +1,5 @@
 # iterative-stratification
-iterative-stratification is a project that provides scikit-learn compatible cross validators with stratification for multilabel data.
+iterative-stratification is a project that provides [scikit-learn](http://scikit-learn.org/) compatible cross validators with stratification for multilabel data.
 
 Presently scikit-learn 0.19.0 provides several cross validators with stratification. However, these cross validators do not offer the ability to stratify _multilabel_ data. This iterative-stratification project offers implementations of MultilabelStratifiedKFold, MultilabelRepeatedStratifiedKFold, and MultilabelStratifiedShuffleSplit with a base algorithm for approximately stratifying multilabel data described in the following paper:
 
