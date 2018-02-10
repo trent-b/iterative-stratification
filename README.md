@@ -31,7 +31,7 @@ import numpy as np
 X = np.array([[1,2], [3,4], [1,2], [3,4], [1,2], [3,4], [1,2], [3,4]])
 y = np.array([[0,0], [0,0], [0,1], [0,1], [1,1], [1,1], [1,0], [1,0]])
 
-mskf = MultilabelStratifiedKFold(n_splits=2)
+mskf = MultilabelStratifiedKFold(n_splits=2, random_state=0)
 
 for train_index, test_index in mskf.split(X, y):
    print("TRAIN:", train_index, "TEST:", test_index)
@@ -40,29 +40,8 @@ for train_index, test_index in mskf.split(X, y):
 ```
 Output:
 ```
-TRAIN: [1 3 4 7] TEST: [0 2 5 6]
-TRAIN: [0 2 5 6] TEST: [1 3 4 7]
-```
-
-### MultilabelStratifiedKFold
-```
-from iterstrat.ml_stratifiers import MultilabelStratifiedKFold
-import numpy as np
-
-X = np.array([[1,2], [3,4], [1,2], [3,4], [1,2], [3,4], [1,2], [3,4]])
-y = np.array([[0,0], [0,0], [0,1], [0,1], [1,1], [1,1], [1,0], [1,0]])
-
-mskf = MultilabelStratifiedKFold(n_splits=2)
-
-for train_index, test_index in mskf.split(X, y):
-   print("TRAIN:", train_index, "TEST:", test_index)
-   X_train, X_test = X[train_index], X[test_index]
-   y_train, y_test = y[train_index], y[test_index]
-```
-Output:
-```
-TRAIN: [1 3 4 7] TEST: [0 2 5 6]
-TRAIN: [0 2 5 6] TEST: [1 3 4 7]
+TRAIN: [0 3 4 6] TEST: [1 2 5 7]
+TRAIN: [1 2 5 7] TEST: [0 3 4 6]
 ```
 ### RepeatedMultilabelStratifiedKFold
 ```
@@ -72,7 +51,7 @@ import numpy as np
 X = np.array([[1,2], [3,4], [1,2], [3,4], [1,2], [3,4], [1,2], [3,4]])
 y = np.array([[0,0], [0,0], [0,1], [0,1], [1,1], [1,1], [1,0], [1,0]])
 
-rmskf = RepeatedMultilabelStratifiedKFold(n_splits=2, n_repeats=2, random_state=None)
+rmskf = RepeatedMultilabelStratifiedKFold(n_splits=2, n_repeats=2, random_state=0)
 
 for train_index, test_index in rmskf.split(X, y):
    print("TRAIN:", train_index, "TEST:", test_index)
@@ -83,8 +62,8 @@ Output:
 ```
 TRAIN: [0 3 4 6] TEST: [1 2 5 7]
 TRAIN: [1 2 5 7] TEST: [0 3 4 6]
-TRAIN: [0 2 5 7] TEST: [1 3 4 6]
-TRAIN: [1 3 4 6] TEST: [0 2 5 7]
+TRAIN: [0 1 4 5] TEST: [2 3 6 7]
+TRAIN: [2 3 6 7] TEST: [0 1 4 5]
 ```
 ### MultilabelStratifiedShuffleSplit
 ```
