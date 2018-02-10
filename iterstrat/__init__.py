@@ -4,7 +4,7 @@ MultilabelRepeatedStratifiedKFold, and MultilabelStratifiedShuffleSplit with a
 base algorithm for stratifying multilabel
 Subpackages
 -----------
-iterative_stratification
+ml_stratifiers
     Module that implements MultilabelStratifiedKFold, 
     MultilabelRepeatedStratifiedKFold, and MultilabelStratifiedShuffleSplit.
 """
@@ -12,4 +12,4 @@ iterative_stratification
 __version__ = '0.1.1'
 
 # list all submodules available in iterstrat and version
-__all__ = ['iterative_stratification', '__version__']
+__all__ = ['ml_stratifiers', '__version__']
