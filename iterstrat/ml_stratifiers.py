@@ -130,7 +130,7 @@ class MultilabelStratifiedKFold(_BaseKFold):
         algorithm breaks ties randomly.
     Examples
     --------
-    >>> from iterative_stratification import MultilabelStratifiedKFold
+    >>> from iterstrat.ml_stratifiers import MultilabelStratifiedKFold
     >>> import numpy as np
     >>> X = np.array([[1,2], [3,4], [1,2], [3,4], [1,2], [3,4], [1,2], [3,4]])
     >>> y = np.array([[0,0], [0,0], [0,1], [0,1], [1,1], [1,1], [1,0], [1,0]])
@@ -234,7 +234,7 @@ class RepeatedMultilabelStratifiedKFold(_RepeatedSplits):
         stratification algorithm.
     Examples
     --------
-    >>> from iterative_stratification import RepeatedMultilabelStratifiedKFold
+    >>> from iterstrat.ml_stratifiers import RepeatedMultilabelStratifiedKFold
     >>> import numpy as np
     >>> X = np.array([[1,2], [3,4], [1,2], [3,4], [1,2], [3,4], [1,2], [3,4]])
     >>> y = np.array([[0,0], [0,0], [0,1], [0,1], [1,1], [1,1], [1,0], [1,0]])
@@ -295,7 +295,7 @@ class MultilabelStratifiedShuffleSplit(BaseShuffleSplit):
         algorithm breaks ties randomly.
     Examples
     --------
-    >>> from iterative_stratification import MultilabelStratifiedShuffleSplit
+    >>> from iterstrat.ml_stratifiers import MultilabelStratifiedShuffleSplit
     >>> import numpy as np
     >>> X = np.array([[1,2], [3,4], [1,2], [3,4], [1,2], [3,4], [1,2], [3,4]])
     >>> y = np.array([[0,0], [0,0], [0,1], [0,1], [1,1], [1,1], [1,0], [1,0]])
