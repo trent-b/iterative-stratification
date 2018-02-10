@@ -134,17 +134,17 @@ class MultilabelStratifiedKFold(_BaseKFold):
     >>> import numpy as np
     >>> X = np.array([[1,2], [3,4], [1,2], [3,4], [1,2], [3,4], [1,2], [3,4]])
     >>> y = np.array([[0,0], [0,0], [0,1], [0,1], [1,1], [1,1], [1,0], [1,0]])
-    >>> mskf = MultilabelStratifiedKFold(n_splits=2)
+    >>> mskf = MultilabelStratifiedKFold(n_splits=2, random_state=0)
     >>> mskf.get_n_splits(X, y)
     2
     >>> print(mskf)  # doctest: +NORMALIZE_WHITESPACE
-    MultilabelStratifiedKFold(n_splits=2, random_state=None, shuffle=False)
+    MultilabelStratifiedKFold(n_splits=2, random_state=0, shuffle=False)
     >>> for train_index, test_index in mskf.split(X, y):
     ...    print("TRAIN:", train_index, "TEST:", test_index)
     ...    X_train, X_test = X[train_index], X[test_index]
     ...    y_train, y_test = y[train_index], y[test_index]
-    TRAIN: [1 3 4 7] TEST: [0 2 5 6]
-    TRAIN: [0 2 5 6] TEST: [1 3 4 7]
+    TRAIN: [0 3 4 6] TEST: [1 2 5 7]
+    TRAIN: [1 2 5 7] TEST: [0 3 4 6]
     Notes
     -----
     Train and test sizes may be slightly different in each fold.
@@ -239,7 +239,7 @@ class RepeatedMultilabelStratifiedKFold(_RepeatedSplits):
     >>> X = np.array([[1,2], [3,4], [1,2], [3,4], [1,2], [3,4], [1,2], [3,4]])
     >>> y = np.array([[0,0], [0,0], [0,1], [0,1], [1,1], [1,1], [1,0], [1,0]])
     >>> rmskf = RepeatedMultilabelStratifiedKFold(n_splits=2, n_repeats=2,
-    ...     random_state=None)
+    ...     random_state=0)
     >>> for train_index, test_index in rmskf.split(X, y):
     ...     print("TRAIN:", train_index, "TEST:", test_index)
     ...     X_train, X_test = X[train_index], X[test_index]
@@ -247,8 +247,8 @@ class RepeatedMultilabelStratifiedKFold(_RepeatedSplits):
     ...
     TRAIN: [0 3 4 6] TEST: [1 2 5 7]
     TRAIN: [1 2 5 7] TEST: [0 3 4 6]
-    TRAIN: [0 2 5 7] TEST: [1 3 4 6]
-    TRAIN: [1 3 4 6] TEST: [0 2 5 7]
+    TRAIN: [0 1 4 5] TEST: [2 3 6 7]
+    TRAIN: [2 3 6 7] TEST: [0 1 4 5]
     See also
     --------
     RepeatedStratifiedKFold: Repeats (Non-multilabel) Stratified K-Fold
