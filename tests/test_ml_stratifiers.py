@@ -23,14 +23,14 @@ class TestMultilabelStratifiedKFold(TestCase):
                 y_test = np.sum(y[test_index], axis=0)
                 y_test = y_test / np.sum(y_test)
                 for i, (r1, r2) in enumerate(zip(y_train, y_test)):
-                    self.assertAlmostEqual(r1, r2, delta=0.05,
+                    self.assertAlmostEqual(r1, r2, delta=0.07,
                                            msg="n_labels={}, n_samples={}, n_splits={}\n"
                                            .format(n_labels, n_samples, n_splits) +
                                                "i={}: {} vs {}\n".format(i, r1, r2))
         np.random.seed(12345)
-        _test(3, 200, n_splits=10)
-        _test(5, 500, n_splits=10)
-        _test(10, 500, n_splits=10)
+        _test(3, 500, n_splits=7)
+        _test(5, 500, n_splits=7)
+        _test(10, 500, n_splits=7)
 
 
 if __name__ == "__main__":

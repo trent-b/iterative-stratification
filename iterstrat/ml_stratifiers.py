@@ -29,7 +29,7 @@ from sklearn.model_selection._split import _BaseKFold, _RepeatedSplits, \
     BaseShuffleSplit, _validate_shuffle_split
 
 
-def IterativeStratification(labels, r, k, random_state):
+def IterativeStratification(labels, r, random_state):
     """This function implements the Iterative Stratification algorithm described
     in the following paper:
     Sechidis K., Tsoumakas G., Vlahavas I. (2011) On the Stratification of
@@ -76,12 +76,10 @@ def IterativeStratification(labels, r, k, random_state):
             break
 
         label_idx = np.where(num_labels == num_labels[np.nonzero(num_labels)].min())[0]
-
         if label_idx.shape[0] > 1:
             label_idx = label_idx[random_state.choice(label_idx.shape[0])]
 
-        sample_idxs = np.where(np.logical_and(labels[:, label_idx].flatten(),
-                                              labels_not_processed_mask))[0]
+        sample_idxs = np.where(np.logical_and(labels[:, label_idx].flatten(), labels_not_processed_mask))[0]
 
         for sample_idx in sample_idxs:
             # Find the subset(s) with the largest number of desired examples
@@ -177,12 +175,11 @@ class MultilabelStratifiedKFold(_BaseKFold):
 
         r = np.asarray([1 / self.n_splits] * self.n_splits)
 
-        test_folds = IterativeStratification(labels=y, r=r, k=self.n_splits,
-                                             random_state=rng)
+        test_folds = IterativeStratification(labels=y, r=r, random_state=rng)
 
         return test_folds[np.argsort(indices)]
 
-    def _iter_test_masks(self, X, y=None, groups=None):
+    def _iter_test_masks(self, X=None, y=None, groups=None):
         test_folds = self._make_test_folds(X, y)
         for i in range(self.n_splits):
             yield test_folds == i
@@ -350,8 +347,7 @@ class MultilabelStratifiedShuffleSplit(BaseShuffleSplit):
             rng.shuffle(indices)
             y = y_orig[indices]
 
-            test_folds = IterativeStratification(labels=y, r=r, k=2,
-                                                 random_state=rng)
+            test_folds = IterativeStratification(labels=y, r=r, random_state=rng)
 
             test_idx = test_folds[np.argsort(indices)] == 1
             test = np.where(test_idx)[0]
