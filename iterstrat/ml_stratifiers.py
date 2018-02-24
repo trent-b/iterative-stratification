@@ -28,6 +28,7 @@ from sklearn.utils.multiclass import type_of_target
 from sklearn.model_selection._split import _BaseKFold, _RepeatedSplits, \
     BaseShuffleSplit, _validate_shuffle_split
 
+
 def IterativeStratification(labels, r, k, random_state):
     """This function implements the Iterative Stratification algorithm described
     in the following paper:
@@ -37,23 +38,23 @@ def IterativeStratification(labels, r, k, random_state):
     2011. Lecture Notes in Computer Science, vol 6913. Springer, Berlin,
     Heidelberg.
     """
-    
+
     n_samples = labels.shape[0]
     test_folds = np.zeros(n_samples, dtype=int)
-    
+
     # Calculate the desired number of examples at each subset
     c_folds = r * n_samples
-    
+
     # Calculate the desired number of examples of each label at each subset
     c_folds_labels = np.outer(r, labels.sum(axis=0))
-    
+
     labels_not_processed_mask = np.ones(n_samples, dtype=bool)
-    
+
     while np.any(labels_not_processed_mask):
         # Find the label with the fewest (but at least one) remaining examples,
         # breaking ties randomly
         num_labels = labels[labels_not_processed_mask].sum(axis=0)
-        
+
         # Handle case where only all-zero labels are left by distributing
         # across all folds as evenly as possible (not in original algorithm but
         # mentioned in the text). (By handling this case separately, some
@@ -62,50 +63,50 @@ def IterativeStratification(labels, r, k, random_state):
         # of all-zero labels.)
         if num_labels.sum() == 0:
             sample_idxs = np.where(labels_not_processed_mask)[0]
-            
+
             for sample_idx in sample_idxs:
                 fold_idx = np.where(c_folds == c_folds.max())[0]
-                
+
                 if fold_idx.shape[0] > 1:
                     fold_idx = fold_idx[random_state.choice(fold_idx.shape[0])]
-                
+
                 test_folds[sample_idx] = fold_idx
                 c_folds[fold_idx] -= 1
-            
+
             break
-        
-        label_idx = np.where(num_labels == 
-                             num_labels[np.nonzero(num_labels)].min())[0]
-        
+
+        label_idx = np.where(num_labels == num_labels[np.nonzero(num_labels)].min())[0]
+
         if label_idx.shape[0] > 1:
             label_idx = label_idx[random_state.choice(label_idx.shape[0])]
-        
+
         sample_idxs = np.where(np.logical_and(labels[:, label_idx].flatten(),
                                               labels_not_processed_mask))[0]
-        
+
         for sample_idx in sample_idxs:
             # Find the subset(s) with the largest number of desired examples
             # for this label, breaking ties by considering the largest number
             # of desired examples, breaking further ties randomly
             label_folds = c_folds_labels[:, label_idx]
             fold_idx = np.where(label_folds == label_folds.max())[0]
-            
+
             if fold_idx.shape[0] > 1:
                 temp_fold_idx = np.where(c_folds[fold_idx] ==
                                          c_folds[fold_idx].max())[0]
                 fold_idx = fold_idx[temp_fold_idx]
-                
+
                 if temp_fold_idx.shape[0] > 1:
                     fold_idx = fold_idx[random_state.choice(temp_fold_idx.shape[0])]
-            
+
             test_folds[sample_idx] = fold_idx
             labels_not_processed_mask[sample_idx] = False
-            
+
             # Update desired number of examples
             c_folds_labels[fold_idx, labels[sample_idx]] -= 1
             c_folds[fold_idx] -= 1
-    
+
     return test_folds
+
 
 class MultilabelStratifiedKFold(_BaseKFold):
     """Multilabel stratified K-Folds cross-validator
@@ -153,41 +154,39 @@ class MultilabelStratifiedKFold(_BaseKFold):
     RepeatedMultilabelStratifiedKFold: Repeats Multilabel Stratified K-Fold
     n times.
     """
-    
+
     def __init__(self, n_splits=3, shuffle=False, random_state=None):
-        super(MultilabelStratifiedKFold, self).__init__(n_splits, shuffle,
-             random_state)
-    
+        super(MultilabelStratifiedKFold, self).__init__(n_splits, shuffle, random_state)
+
     def _make_test_folds(self, X, y):
         y = np.asarray(y, dtype=bool)
         type_of_target_y = type_of_target(y)
-        
+
         if type_of_target_y != 'multilabel-indicator':
             raise ValueError(
-                'Supported target type is: multilabel-indicator. Got {!r} instead.'.format(
-                    type_of_target_y))
-        
+                'Supported target type is: multilabel-indicator. Got {!r} instead.'.format(type_of_target_y))
+
         num_samples = y.shape[0]
-        
+
         rng = check_random_state(self.random_state)
         indices = np.arange(num_samples)
-        
+
         if self.shuffle:
             rng.shuffle(indices)
             y = y[indices]
-        
+
         r = np.asarray([1 / self.n_splits] * self.n_splits)
-        
+
         test_folds = IterativeStratification(labels=y, r=r, k=self.n_splits,
                                              random_state=rng)
-        
+
         return test_folds[np.argsort(indices)]
-    
+
     def _iter_test_masks(self, X, y=None, groups=None):
         test_folds = self._make_test_folds(X, y)
         for i in range(self.n_splits):
             yield test_folds == i
-    
+
     def split(self, X, y, groups=None):
         """Generate indices to split data into training and test set.
         Parameters
@@ -217,6 +216,7 @@ class MultilabelStratifiedKFold(_BaseKFold):
         """
         y = check_array(y, ensure_2d=False, dtype=None)
         return super(MultilabelStratifiedKFold, self).split(X, y, groups)
+
 
 class RepeatedMultilabelStratifiedKFold(_RepeatedSplits):
     """Repeated Multilabel Stratified K-Fold cross validator.
@@ -258,6 +258,7 @@ class RepeatedMultilabelStratifiedKFold(_RepeatedSplits):
         super(RepeatedMultilabelStratifiedKFold, self).__init__(
             MultilabelStratifiedKFold, n_repeats, random_state,
             n_splits=n_splits)
+
 
 class MultilabelStratifiedShuffleSplit(BaseShuffleSplit):
     """Multilabel Stratified ShuffleSplit cross-validator
@@ -318,46 +319,46 @@ class MultilabelStratifiedShuffleSplit(BaseShuffleSplit):
     Train and test sizes may be slightly different from desired due to the
     preference of stratification over perfectly sized folds.
     """
-    
+
     def __init__(self, n_splits=10, test_size="default", train_size=None,
                  random_state=None):
         super(MultilabelStratifiedShuffleSplit, self).__init__(
             n_splits, test_size, train_size, random_state)
-    
+
     def _iter_indices(self, X, y, groups=None):
         n_samples = _num_samples(X)
         y = check_array(y, ensure_2d=False, dtype=None)
         y = np.asarray(y, dtype=bool)
         type_of_target_y = type_of_target(y)
-        
+
         if type_of_target_y != 'multilabel-indicator':
             raise ValueError(
                 'Supported target type is: multilabel-indicator. Got {!r} instead.'.format(
                     type_of_target_y))
-        
+
         n_train, n_test = _validate_shuffle_split(n_samples, self.test_size,
                                                   self.train_size)
-        
+
         n_samples = y.shape[0]
         rng = check_random_state(self.random_state)
         y_orig = y.copy()
-        
+
         r = np.array([n_train, n_test]) / (n_train + n_test)
-        
+
         for _ in range(self.n_splits):
             indices = np.arange(n_samples)
             rng.shuffle(indices)
             y = y_orig[indices]
-            
+
             test_folds = IterativeStratification(labels=y, r=r, k=2,
                                                  random_state=rng)
-            
+
             test_idx = test_folds[np.argsort(indices)] == 1
             test = np.where(test_idx)[0]
             train = np.where(~test_idx)[0]
-            
+
             yield train, test
-    
+
     def split(self, X, y, groups=None):
         """Generate indices to split data into training and test set.
         Parameters
@@ -386,5 +387,4 @@ class MultilabelStratifiedShuffleSplit(BaseShuffleSplit):
         to an integer.
         """
         y = check_array(y, ensure_2d=False, dtype=None)
-        return super(MultilabelStratifiedShuffleSplit, self).split(X, y,
-                    groups)
+        return super(MultilabelStratifiedShuffleSplit, self).split(X, y, groups)

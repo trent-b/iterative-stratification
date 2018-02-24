@@ -27,7 +27,7 @@ class TestMultilabelStratifiedKFold(TestCase):
                                            msg="n_labels={}, n_samples={}, n_splits={}\n"
                                            .format(n_labels, n_samples, n_splits) +
                                                "i={}: {} vs {}\n".format(i, r1, r2))
-
+        np.random.seed(12345)
         _test(3, 200, n_splits=10)
         _test(5, 500, n_splits=10)
         _test(10, 500, n_splits=10)
