@@ -1,11 +1,11 @@
 """Package that provides scikit-learn compatible cross validators with stratification for multilabel data.
-``iterative-stratification`` offers implementations of MultilabelStratifiedKFold, 
-MultilabelRepeatedStratifiedKFold, and MultilabelStratifiedShuffleSplit with a 
-base algorithm for stratifying multilabel
+``iterative-stratification`` offers implementations of MultilabelStratifiedKFold,
+MultilabelRepeatedStratifiedKFold, and MultilabelStratifiedShuffleSplit with a base algorithm for stratifying
+multilabel
 Subpackages
 -----------
 ml_stratifiers
-    Module that implements MultilabelStratifiedKFold, 
+    Module that implements MultilabelStratifiedKFold,
     MultilabelRepeatedStratifiedKFold, and MultilabelStratifiedShuffleSplit.
 """
 

@@ -1,3 +1,7 @@
+
+[![Build Status](https://travis-ci.org/vfdev-5/iterative-stratification.svg?branch=master)](https://travis-ci.org/vfdev-5/iterative-stratification)
+[![Coverage Status](https://coveralls.io/repos/github/vfdev-5/iterative-stratification/badge.svg?branch=master)](https://coveralls.io/github/vfdev-5/iterative-stratification?branch=master)
+
 # iterative-stratification
 iterative-stratification is a project that provides [scikit-learn](http://scikit-learn.org/) compatible cross validators with stratification for multilabel data.
 
