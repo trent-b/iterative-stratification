@@ -2,6 +2,7 @@ sudo: required
 language: python
 matrix:
     include:
+        - python: 3.6
         - python: 3.5
         - python: 2.7
 
