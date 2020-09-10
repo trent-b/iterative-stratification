@@ -14,7 +14,7 @@ class TestMultilabelStratifiedKFold(TestCase):
         def _test(n_labels, n_samples, n_splits):
             x = np.zeros((n_samples, 2))  # This is not used in the split
             y = np.random.randint(0, 2, size=(n_samples, n_labels))
-            mskf = MultilabelStratifiedKFold(n_splits=n_splits, random_state=1)
+            mskf = MultilabelStratifiedKFold(n_splits=n_splits)
 
             for train_index, test_index in mskf.split(x, y):
                 self.assertEqual(len(set(train_index) & set(test_index)), 0)
