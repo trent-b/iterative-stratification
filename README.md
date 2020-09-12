@@ -10,7 +10,7 @@ Presently scikit-learn provides several cross validators with stratification. Ho
 Sechidis K., Tsoumakas G., Vlahavas I. (2011) On the Stratification of Multi-Label Data. In: Gunopulos D., Hofmann T., Malerba D., Vazirgiannis M. (eds) Machine Learning and Knowledge Discovery in Databases. ECML PKDD 2011. Lecture Notes in Computer Science, vol 6913. Springer, Berlin, Heidelberg.
 
 ## Requirements
-iterative-stratification has been tested under Python 3.4 through 3.7 with the following dependencies:
+iterative-stratification has been tested under Python 3.4 through 3.8 with the following dependencies:
 - scipy(>=0.13.3)
 - numpy(>=1.8.2)
 - scikit-learn(>=0.19.0)
@@ -37,7 +37,7 @@ import numpy as np
 X = np.array([[1,2], [3,4], [1,2], [3,4], [1,2], [3,4], [1,2], [3,4]])
 y = np.array([[0,0], [0,0], [0,1], [0,1], [1,1], [1,1], [1,0], [1,0]])
 
-mskf = MultilabelStratifiedKFold(n_splits=2, random_state=0)
+mskf = MultilabelStratifiedKFold(n_splits=2, shuffle=True, random_state=0)
 
 for train_index, test_index in mskf.split(X, y):
    print("TRAIN:", train_index, "TEST:", test_index)
@@ -82,9 +82,9 @@ y = np.array([[0,0], [0,0], [0,1], [0,1], [1,1], [1,1], [1,0], [1,0]])
 msss = MultilabelStratifiedShuffleSplit(n_splits=3, test_size=0.5, random_state=0)
 
 for train_index, test_index in msss.split(X, y):
-	print("TRAIN:", train_index, "TEST:", test_index)
-	X_train, X_test = X[train_index], X[test_index]
-	y_train, y_test = y[train_index], y[test_index]
+   print("TRAIN:", train_index, "TEST:", test_index)
+   X_train, X_test = X[train_index], X[test_index]
+   y_train, y_test = y[train_index], y[test_index]
 ```
 Output:
 ```
