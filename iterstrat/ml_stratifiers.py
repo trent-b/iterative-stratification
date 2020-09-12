@@ -154,7 +154,7 @@ class MultilabelStratifiedKFold(_BaseKFold):
     """
 
     def __init__(self, n_splits=3, shuffle=False, random_state=None):
-        super(MultilabelStratifiedKFold, self).__init__(n_splits, shuffle, random_state)
+        super(MultilabelStratifiedKFold, self).__init__(n_splits=n_splits, shuffle=shuffle, random_state=random_state)
 
     def _make_test_folds(self, X, y):
         y = np.asarray(y, dtype=bool)
@@ -253,7 +253,7 @@ class RepeatedMultilabelStratifiedKFold(_RepeatedSplits):
     """
     def __init__(self, n_splits=5, n_repeats=10, random_state=None):
         super(RepeatedMultilabelStratifiedKFold, self).__init__(
-            MultilabelStratifiedKFold, n_repeats, random_state,
+            MultilabelStratifiedKFold, n_repeats=n_repeats, random_state=random_state,
             n_splits=n_splits)
 
 
@@ -320,7 +320,7 @@ class MultilabelStratifiedShuffleSplit(BaseShuffleSplit):
     def __init__(self, n_splits=10, test_size="default", train_size=None,
                  random_state=None):
         super(MultilabelStratifiedShuffleSplit, self).__init__(
-            n_splits, test_size, train_size, random_state)
+            n_splits=n_splits, test_size=test_size, train_size=train_size, random_state=random_state)
 
     def _iter_indices(self, X, y, groups=None):
         n_samples = _num_samples(X)
