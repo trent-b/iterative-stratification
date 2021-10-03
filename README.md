@@ -20,11 +20,6 @@ iterative-stratification is currently available on the PyPi repository and can b
 ```
 pip install iterative-stratification
 ```
-\
-The package is also installable from the Anaconda Cloud platform:
-```
-conda install -c trent-b iterative-stratification
-```
 
 ## Toy Examples
 The multilabel cross validators that this package provides may be used with the scikit-learn API in the same manner as any other cross validators. For example, these cross validators may be passed to [cross_val_score](http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_val_score.html) or [cross_val_predict](http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_val_predict.html). Below are some toy examples of the direct use of the multilabel cross validators.
