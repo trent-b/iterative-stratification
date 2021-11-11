@@ -9,7 +9,7 @@ ml_stratifiers
     MultilabelRepeatedStratifiedKFold, and MultilabelStratifiedShuffleSplit.
 """
 
-__version__ = '0.1.6'
+__version__ = '0.1.7'
 
 # list all submodules available in iterstrat and version
 __all__ = ['ml_stratifiers', '__version__']
