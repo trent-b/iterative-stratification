@@ -25,7 +25,7 @@ pip install iterative-stratification
 The multilabel cross validators that this package provides may be used with the scikit-learn API in the same manner as any other cross validators. For example, these cross validators may be passed to [cross_val_score](http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_val_score.html) or [cross_val_predict](http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_val_predict.html). Below are some toy examples of the direct use of the multilabel cross validators.
 
 ### MultilabelStratifiedKFold
-```
+```python
 from iterstrat.ml_stratifiers import MultilabelStratifiedKFold
 import numpy as np
 
@@ -45,7 +45,7 @@ TRAIN: [0 3 4 6] TEST: [1 2 5 7]
 TRAIN: [1 2 5 7] TEST: [0 3 4 6]
 ```
 ### RepeatedMultilabelStratifiedKFold
-```
+```python
 from iterstrat.ml_stratifiers import RepeatedMultilabelStratifiedKFold
 import numpy as np
 
@@ -67,7 +67,7 @@ TRAIN: [0 1 4 5] TEST: [2 3 6 7]
 TRAIN: [2 3 6 7] TEST: [0 1 4 5]
 ```
 ### MultilabelStratifiedShuffleSplit
-```
+```python
 from iterstrat.ml_stratifiers import MultilabelStratifiedShuffleSplit
 import numpy as np
 
