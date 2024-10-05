@@ -69,6 +69,8 @@ def IterativeStratification(labels, r, random_state):
 
                 if fold_idx.shape[0] > 1:
                     fold_idx = fold_idx[random_state.choice(fold_idx.shape[0])]
+                else:
+                    fold_idx = fold_idx[0]
 
                 test_folds[sample_idx] = fold_idx
                 c_folds[fold_idx] -= 1
@@ -95,6 +97,8 @@ def IterativeStratification(labels, r, random_state):
 
                 if temp_fold_idx.shape[0] > 1:
                     fold_idx = fold_idx[random_state.choice(temp_fold_idx.shape[0])]
+            else:
+                fold_idx = fold_idx[0]
 
             test_folds[sample_idx] = fold_idx
             labels_not_processed_mask[sample_idx] = False

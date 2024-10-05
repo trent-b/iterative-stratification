@@ -10,7 +10,7 @@ Presently scikit-learn provides several cross validators with stratification. Ho
 Sechidis K., Tsoumakas G., Vlahavas I. (2011) On the Stratification of Multi-Label Data. In: Gunopulos D., Hofmann T., Malerba D., Vazirgiannis M. (eds) Machine Learning and Knowledge Discovery in Databases. ECML PKDD 2011. Lecture Notes in Computer Science, vol 6913. Springer, Berlin, Heidelberg.
 
 ## Requirements
-iterative-stratification has been tested under Python 3.4 through 3.8 with the following dependencies:
+iterative-stratification has been tested under Python 3.4 through 3.9 with the following dependencies:
 - scipy(>=0.13.3)
 - numpy(>=1.8.2)
 - scikit-learn(>=0.19.0)
