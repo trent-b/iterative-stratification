@@ -19,7 +19,7 @@ MAINTAINER_EMAIL = 'trentjason@hotmail.com'
 URL = 'https://github.com/trent-b/iterative-stratification'
 LICENSE = 'BSD 3'
 DOWNLOAD_URL = 'https://github.com/trent-b/iterative-stratification'
-VERSION = '0.1.8'
+VERSION = '0.1.9'
 INSTALL_REQUIRES = ['numpy', 'scipy', 'scikit-learn']
 CLASSIFIERS = ['Intended Audience :: Science/Research',
                'Intended Audience :: Developers',
