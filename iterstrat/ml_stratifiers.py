@@ -89,14 +89,16 @@ def IterativeStratification(labels, r, random_state):
             # of desired examples, breaking further ties randomly
             label_folds = c_folds_labels[:, label_idx]
             fold_idx = np.where(label_folds == label_folds.max())[0]
-
+            
             if fold_idx.shape[0] > 1:
                 temp_fold_idx = np.where(c_folds[fold_idx] ==
                                          c_folds[fold_idx].max())[0]
-                fold_idx = fold_idx[temp_fold_idx]
-
+                
                 if temp_fold_idx.shape[0] > 1:
+                    fold_idx = fold_idx[temp_fold_idx]
                     fold_idx = fold_idx[random_state.choice(temp_fold_idx.shape[0])]
+                else:
+                    fold_idx = fold_idx[temp_fold_idx[0]]
             else:
                 fold_idx = fold_idx[0]
 
