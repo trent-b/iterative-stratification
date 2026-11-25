@@ -150,6 +150,7 @@ class MultilabelStratifiedKFold(_BaseKFold):
     ...    y_train, y_test = y[train_index], y[test_index]
     TRAIN: [0 3 4 6] TEST: [1 2 5 7]
     TRAIN: [1 2 5 7] TEST: [0 3 4 6]
+
     Notes
     -----
     Train and test sizes may be slightly different in each fold.
@@ -160,7 +161,9 @@ class MultilabelStratifiedKFold(_BaseKFold):
     """
 
     def __init__(self, n_splits=3, *, shuffle=False, random_state=None):
-        super(MultilabelStratifiedKFold, self).__init__(n_splits=n_splits, shuffle=shuffle, random_state=random_state)
+        super(MultilabelStratifiedKFold, self).__init__(n_splits=n_splits, shuffle=shuffle, random_state=None)
+        # The base class only uses a seed for shuffling; stratification also uses it to break ties.
+        self.random_state = random_state
 
     def _make_test_folds(self, X, y):
         y = np.asarray(y, dtype=bool)
