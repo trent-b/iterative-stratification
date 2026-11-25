@@ -9,6 +9,16 @@ from iterstrat.ml_stratifiers import MultilabelStratifiedKFold
 
 class TestMultilabelStratifiedKFold(TestCase):
 
+    def test_seeded_tie_breaking_without_shuffle(self):
+        y = np.repeat([[0, 0], [0, 1], [1, 1], [1, 0]], 2, axis=0)
+        x = np.zeros(len(y))
+        for seed, expected in [(0, [[1, 2, 5, 7], [0, 3, 4, 6]]),
+                               (1, [[1, 3, 4, 6], [0, 2, 5, 7]])]:
+            splitter = MultilabelStratifiedKFold(n_splits=2, random_state=seed)
+            for _ in range(2):
+                folds = [test.tolist() for _, test in splitter.split(x, y)]
+                self.assertEqual(folds, expected)
+
     def test_integration(self):
 
         def _test(n_labels, n_samples, n_splits):
